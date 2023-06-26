@@ -1,5 +1,3 @@
-Sure! Here's a short README file that explains how to run and use the provided code:
-
 # Student Data Application
 
 This is a simple Node.js application that uses Express and MySQL to allow users to register schools, add webhook events to schools, and add students to schools.

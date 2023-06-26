@@ -1,8 +1,37 @@
 const express = require('express');
-const { db } = require('./db'); // Import the db object from the provided code
+const dotenv = require("dotenv");
+const db = require('./db'); // Import the db object from the provided code
+
+// import Fetch sensitive data from .env file
+dotenv.config({ path: "example.env"});
+
+// Connect to database
+const db = mysql.createPool({
+    connectionLimit : 100,
+    host: process.env.DATABASE_HUST,
+    port: process.env.DATABASE_PORT,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE,
+    multipleStatements: true
+});
+
+// If connection have any error show it else make connection
+db.getConnection((error,connection) =>{
+    if(error) write.error(error);
+    try {
+        console.log(`Mysql Successfully connected Thread id = ${connection.threadId}`);
+        console.log(`Database name ${process.env.DATABASE}`);
+    } catch (error) {
+        if(error) {
+            console.error(`Node can't connect to Mysql :/ ${error}`);
+        }
+    }
+});
 
 const app = express();
 const PORT = 3100;
+
 app.use(express.json()); // Use the built-in express.json middleware instead of body-parser
 
 app.get('/', (req, res) => {
